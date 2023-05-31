@@ -1,0 +1,74 @@
+const {model,Schema}= require('mongoose');
+
+module.exports = model("teacher",new Schema({
+    login:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    status:{
+        type:String,
+        enum:["admin","teacher","student"],
+        default:"student"
+    },
+    info:{
+        type:String
+    },
+    firstName:String,
+    lastName:String,
+    email:String,
+    phone:Number,
+    password:String,
+    subject:String,
+    parentsNumber:
+    {
+        mother:Number,
+        father:Number,
+    },
+    totalScore:Number,
+    allScore:{
+        type:Number
+    },
+    attendance:[
+        {
+            date:{
+                type:Date,
+                default:Date.now()
+            },
+            absend:{
+                type:Boolean,
+                default:false
+            },
+            score:{
+                type:Number,
+                default:0
+            },
+        }
+    ],
+    group:[
+        {
+            title:String,
+            day:{
+                type:String,
+                enum:["toq", "juft"],
+                default:"toq"
+            },
+            time:{
+                type:String,
+                require:true
+            },
+            students:[{
+                type:Schema.Types.ObjectId,
+                ref:"students",
+                unique:true
+            }
+
+            ]
+        }
+    ]
+
+}))
